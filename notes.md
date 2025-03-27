@@ -18,7 +18,6 @@ export type Habit = {
   id: string
   title: String
   genContent: string
-
   category: string
   color: number
   mon: ConstrainBoolean
