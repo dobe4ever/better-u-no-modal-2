@@ -1,0 +1,2 @@
+- google login redirects to old app url from a different deployemnt in vercel
+- chatbot floating button its ok to be always fixed at the very front, except for when alert dialogs or similar ui's are triggerd, those need to be at the very front so nothing blocks the buttons or interactive elements content in the dialogs

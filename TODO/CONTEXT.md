@@ -1,0 +1,1 @@
+- This code is a repository i edit via codespace on the browser. When i push it autodeploys to vercel. the env variables are already set in the .env.local as well as in vercel. 
