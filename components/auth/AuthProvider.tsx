@@ -1,4 +1,5 @@
 // components/auth/AuthProvider.tsx
+
 // This is a client-side component that manages authentication state for the application
 
 "use client"

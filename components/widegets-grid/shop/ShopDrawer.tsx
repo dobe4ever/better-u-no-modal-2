@@ -1,3 +1,5 @@
+// components/widegets-grid/shop/ShopDrawer.tsx
+
 "use client"
 
 import { useState } from "react"

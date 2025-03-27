@@ -1,3 +1,5 @@
+// components/custom-components/custom-slider.tsx
+
 import type React from "react"
 import { cn } from "@/lib/utils"
 import * as SliderPrimitive from "@radix-ui/react-slider"

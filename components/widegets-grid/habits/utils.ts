@@ -1,7 +1,5 @@
 // components/widegets-grid/habits/utils.ts
 
-import { Habit } from "./HabitsData"
-
 // Format date helpers
 export const formatDate = (date: Date): string => {
   return date.toLocaleDateString("en-US", {

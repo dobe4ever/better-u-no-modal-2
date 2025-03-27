@@ -1,3 +1,5 @@
+// components/widegets-grid/widget.tsx
+
 import type { ReactNode } from "react"
 import { ChevronRight } from "lucide-react"
 

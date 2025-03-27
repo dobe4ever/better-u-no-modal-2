@@ -1,4 +1,5 @@
 // components/auth/LoginSignup.tsx
+
 // Client component for handling user authentication
 
 "use client"

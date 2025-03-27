@@ -1,3 +1,5 @@
+// components/widegets-grid/analytics/AnalyticsDrawer.tsx
+
 "use client"
 
 import { useState } from "react"

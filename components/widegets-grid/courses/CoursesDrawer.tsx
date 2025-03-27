@@ -1,3 +1,5 @@
+// components/widegets-grid/courses/CoursesDrawer.tsx
+
 "use client"
 
 import { useState } from "react"

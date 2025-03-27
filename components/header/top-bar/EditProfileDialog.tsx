@@ -147,11 +147,13 @@ export function EditProfileDialog() {
       </DialogTrigger>
 
       <DialogContent className="dialog-wrapper">
-        <DialogHeader className="dialog-header">
-          <DialogTitle className="dialog-title">Edit Profile</DialogTitle>
-          <DialogClose className="dialog-close-btn">
-            <X className="w-5 h-5" />
-          </DialogClose>
+        <DialogHeader>
+          <div className="flex justify-between items-center">
+            <DialogTitle className="dialog-title">Edit Profile</DialogTitle>
+            <DialogClose className="dialog-close-btn">
+              <X className="w-5 h-5" />
+            </DialogClose>
+          </div>
         </DialogHeader>
         
         {message.text && (

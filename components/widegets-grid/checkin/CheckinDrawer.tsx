@@ -1,3 +1,5 @@
+// components/widegets-grid/checkin/CheckinDrawer.tsx
+
 "use client"
 
 import { useState } from "react"

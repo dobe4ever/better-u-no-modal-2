@@ -1,3 +1,5 @@
+// components/widegets-grid/ads/AdsWidget.tsx
+
 "use client"
 
 import { useState } from "react"

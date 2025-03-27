@@ -1,3 +1,5 @@
+// components/widegets-grid/badges/BadgesDrawer.tsx
+
 "use client"
 
 import { useState } from "react"

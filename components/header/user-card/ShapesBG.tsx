@@ -1,3 +1,5 @@
+// components/header/user-card/ShapesBG.tsx
+
 export function ShapesBG() {
   return (
     <div className="absolute top-[50%] right-0 left-0 bottom-0 -z-10">
