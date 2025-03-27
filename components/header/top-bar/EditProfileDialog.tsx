@@ -140,11 +140,12 @@ export function EditProfileDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="flex items-center cursor-pointer">
-          <Edit className="mr-2 h-4 w-4 text-orange-main" /> 
-          <span className="text-gray-500">Edit Profile</span>
+        <div className="flex items-center cursor-pointer pl-2">
+          <Edit className="mr-4 h-4 w-4 text-orange-main" /> 
+          <span className="text-sm text-gray-500">Edit Profile</span>
         </div>
       </DialogTrigger>
+
       <DialogContent className="dialog-wrapper">
         <DialogHeader className="dialog-header">
           <DialogTitle className="dialog-title">Edit Profile</DialogTitle>
@@ -216,31 +217,21 @@ export function EditProfileDialog() {
           </div>
           
           <DialogFooter className="dialog-footer">
-            <div className="flex w-full gap-4">
-              <DialogClose asChild>
-                <Button 
-                  type="button" 
-                  variant="outline"
-                  className="w-full rounded-3xl" 
-                >
-                  Cancel
-                </Button>
-              </DialogClose>
-              <Button 
-                type="submit" 
-                className="dialog-submit-btn rounded-3xl" 
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <span className="flex items-center">
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...
-                  </span>
-                ) : (
-                  "Save Changes"
-                )}
-              </Button>
-            </div>
+            <Button 
+              type="submit" 
+              className="dialog-submit-btn rounded-3xl" 
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <span className="flex items-center">
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...
+                </span>
+              ) : (
+                "Save Changes"
+              )}
+            </Button>
           </DialogFooter>
+          
         </form>
       </DialogContent>
     </Dialog>

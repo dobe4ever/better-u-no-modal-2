@@ -1,4 +1,5 @@
 // components/auth/LoginSignup.tsx
+// Client component for handling user authentication
 
 "use client"
 
@@ -10,14 +11,18 @@ import { LogoOrange } from "@/components/header/top-bar/logo"
 import { supabase, upsertProfile } from "@/utils/supabase"
 
 export function LoginSignup() {
+  // State to track whether user is in login or signup mode
   const [isLogin, setIsLogin] = useState(true)
+  // Form input states
   const [email, setEmail] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  // UI state management
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isEmailSent, setIsEmailSent] = useState(false)
 
+  // Handle form submission for both login and signup
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
@@ -25,6 +30,7 @@ export function LoginSignup() {
 
     try {
       if (isLogin) {
+        // Handle login flow
         const { data, error } = await supabase.auth.signInWithPassword({
           email,
           password,
@@ -33,7 +39,7 @@ export function LoginSignup() {
         if (error) {
           setError(error.message)
         } else if (data.user) {
-          // Make sure profile exists in the database
+          // Ensure user profile exists in the database after successful login
           try {
             await upsertProfile({
               id: data.user.id,
@@ -46,12 +52,13 @@ export function LoginSignup() {
           }
         }
       } else {
+        // Handle signup flow
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
             data: {
-              username,
+              username, // Store username in auth metadata
             },
           },
         })
@@ -59,7 +66,7 @@ export function LoginSignup() {
         if (error) {
           setError(error.message)
         } else if (data.user) {
-          // Create profile in database
+          // Create user profile in the database after successful signup
           try {
             await upsertProfile({
               id: data.user.id,
@@ -71,7 +78,7 @@ export function LoginSignup() {
             console.error('Error creating profile:', err)
           }
           
-          // Check if email confirmation is required
+          // Show email verification screen if email confirmation is required
           if (data.session === null) {
             setIsEmailSent(true)
           }
@@ -84,6 +91,7 @@ export function LoginSignup() {
     }
   }
 
+  // Display email verification screen after signup
   if (isEmailSent) {
     return (
       <div className="min-h-screen bg-gradient-orange flex flex-col justify-center items-center p-4">
@@ -109,6 +117,7 @@ export function LoginSignup() {
     )
   }
 
+  // Main login/signup form
   return (
     <div className="min-h-screen bg-gradient-orange flex flex-col justify-center items-center p-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-xl p-8">
@@ -116,12 +125,15 @@ export function LoginSignup() {
           <LogoOrange />
         </div>
         <h2 className="text-2xl font-bold text-center mb-6">{isLogin ? "Login" : "Sign Up"}</h2>
+        {/* Display error messages if any */}
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Email field */}
           <div>
             <Label htmlFor="email">Email</Label>
             <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
+          {/* Username field - only shown during signup */}
           {!isLogin && (
             <div>
               <Label htmlFor="username">Username</Label>
@@ -134,6 +146,7 @@ export function LoginSignup() {
               />
             </div>
           )}
+          {/* Password field */}
           <div>
             <Label htmlFor="password">Password</Label>
             <Input
@@ -144,10 +157,12 @@ export function LoginSignup() {
               required
             />
           </div>
+          {/* Submit button - changes text based on context and loading state */}
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? "Loading..." : isLogin ? "Login" : "Sign Up"}
           </Button>
           
+          {/* Divider for social login options - only shown during login */}
           {isLogin && (
             <div className="relative my-4">
               <div className="absolute inset-0 flex items-center">
@@ -159,6 +174,7 @@ export function LoginSignup() {
             </div>
           )}
           
+          {/* Google OAuth login button - only shown during login */}
           {isLogin && (
             <Button
               type="button"
@@ -168,6 +184,7 @@ export function LoginSignup() {
                   setIsLoading(true)
                   setError(null)
                   
+                  // Initiate Google OAuth flow
                   const { data, error } = await supabase.auth.signInWithOAuth({
                     provider: 'google',
                     options: {
@@ -186,6 +203,7 @@ export function LoginSignup() {
               }}
               disabled={isLoading}
             >
+              {/* Google logo SVG */}
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -197,6 +215,7 @@ export function LoginSignup() {
           )}
         </form>
         
+        {/* Toggle between login and signup modes */}
         <p className="mt-4 text-center">
           {isLogin ? "Don't have an account?" : "Already have an account?"}
           <button 

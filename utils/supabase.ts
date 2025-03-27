@@ -1,6 +1,7 @@
 // utils/supabase.ts
 
 import { createClient } from "@supabase/supabase-js"
+import { Profile } from "../types/profile"
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -18,19 +19,7 @@ class SupabaseClientSingleton {
 
 export const supabase = SupabaseClientSingleton.getInstance()
 
-// Database types
-export type Profile = {
-  id: string
-  username: string
-  avatar_url: string
-  created_at: string
-}
-
-// Helper functions for user profiles
-
-/**
- * Creates or updates a user profile in the profiles table
- */
+// Creates or updates a user profile in the profiles table
 export async function upsertProfile(profile: Partial<Profile> & { id: string }) {
   const { error } = await supabase
     .from('profiles')
@@ -42,22 +31,3 @@ export async function upsertProfile(profile: Partial<Profile> & { id: string }) 
     throw error
   }
 }
-
-/**
- * Fetches a user profile from the profiles table
- */
-export async function getProfile(userId: string): Promise<Profile | null> {
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', userId)
-    .single()
-  
-  if (error) {
-    console.error('Error fetching profile:', error)
-    return null
-  }
-  
-  return data as Profile
-}
-

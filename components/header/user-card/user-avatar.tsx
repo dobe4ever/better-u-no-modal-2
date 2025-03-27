@@ -13,7 +13,7 @@ interface BigAvatarProps {
   classnames?: string
 }
 
-export function BigAvatar({
+export function UserAvatar({
   classnames = "flex justify-center aspect-[1/1] size-[70%] border-4 border-orange-300/50 shadow-lg rounded-full",
 }: BigAvatarProps) {
   const { user } = useAuth()

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { LogOut, Crown } from "lucide-react"
 import { EditProfileDialog } from "./EditProfileDialog"
-import { BigAvatar } from "../user-card/BigAvatar"
+import { UserAvatar } from "../user-card/user-avatar"
 import { useAuth } from "@/components/auth/AuthProvider"
 
 export function ProfileDropdown() {
@@ -23,7 +23,7 @@ export function ProfileDropdown() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="rounded-full size-8 text-white pr-">
-          <BigAvatar classnames="size-8 border rounded-full border-white" />
+          <UserAvatar classnames="size-8 border rounded-full border-white" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w- p-3">
@@ -31,7 +31,7 @@ export function ProfileDropdown() {
         
         <div className="flex flex-row p-2">
           <div className="flex items-center">
-            <BigAvatar classnames="size-10 border-2 rounded-full border-white mr-3" />
+            <UserAvatar classnames="size-10 border-2 rounded-full border-white mr-3" />
             <div className="flex flex-col">
               <div className="text-title-card">{username}</div>
               <p className="text-gray-500 text-sm whitespace-nowrap">Free plan</p>
