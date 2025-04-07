@@ -134,3 +134,41 @@ In the project directory, you can run:
 *   `npm run lint` or `yarn lint` or `pnpm lint`: Lints the codebase using Next.js's built-in ESLint configuration.
 
 ---
+
+# 1. Initialize or clear the output file and add a title
+echo "# Codebase Snapshot ($(date))" > CODEBASE.md
+echo "" >> CODEBASE.md
+
+# 2. Find relevant files and append their content with headers
+#    - Find items in the current directory '.'
+#    - Exclusions:
+#      - Prune (don't descend into) directories named ".next", ".git", "node_modules", ".vscode"
+#      - Prune (don't descend into) any directory or file starting with '.' (covers .env, .eslintrc.json etc. at any level)
+#    - OR (-o) condition: Find only items of type file (-type f) that were NOT pruned
+#    - Execute (-exec) a shell command for each found file '{}'
+find . \
+  \( -name ".next" -o -name ".git" -o -name "node_modules" -o -name ".vscode" -o -path '*/\.*' \) -prune \
+  -o -type f \
+  -exec sh -c '
+    filepath="$1"
+    # Remove leading "./" if present for cleaner paths
+    clean_filepath="${filepath#./}"
+    # Try to guess language from extension for markdown code block
+    extension="${filepath##*.}"
+
+    # Append header and content to CODEBASE.md
+    {
+      echo "" # Add some spacing before the file block
+      echo "---" # Horizontal rule separator
+      echo "### File: \`$clean_filepath\`" # Header with filename (use backticks for inline code)
+      echo "---" # Horizontal rule separator
+      echo "" # Add spacing after header
+      echo "\`\`\`$extension" # Start markdown code block with language hint
+      cat "$filepath" # Add file content
+      echo "" # Add a newline before the closing fence (good practice)
+      echo "\`\`\`" # End markdown code block
+      echo "" # Add spacing after the file block
+    } >> CODEBASE.md
+' sh {} \;
+
+echo "CODEBASE.md generated successfully."
